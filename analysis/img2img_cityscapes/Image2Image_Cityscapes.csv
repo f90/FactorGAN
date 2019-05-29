@@ -1,0 +1,21 @@
+Paired samples,Perf,Model,Metric
+25,0.0409,GAN,MSE
+100,0.03447,GAN,MSE
+500,0.02419,GAN,MSE
+1000,0.01954,GAN,MSE
+3000,0.02029,GAN,MSE
+25,0.02665,FactorGAN,MSE
+100,0.02688,FactorGAN,MSE
+500,0.02116,FactorGAN,MSE
+1000,0.02038,FactorGAN,MSE
+3000,0.0196,FactorGAN,MSE
+25,53.98,GAN,Accuracy
+100,64.41,GAN,Accuracy
+500,73.26,GAN,Accuracy
+1000,79.24,GAN,Accuracy
+3000,78.18,GAN,Accuracy
+25,71.66,FactorGAN,Accuracy
+100,71.98,FactorGAN,Accuracy
+500,77.41,FactorGAN,Accuracy
+1000,77.95,FactorGAN,Accuracy
+3000,78.66,FactorGAN,Accuracy
