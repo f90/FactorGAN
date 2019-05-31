@@ -4,6 +4,8 @@ This respository implements "FactorGAN" as described in the paper
 
 "Training Generative Adversarial Networks from Incomplete Observations using Factorised Discriminators"
 
+available as preprint on [ArXiv](https://arxiv.org/abs/1905.12660).
+
 ## FactorGAN - Quick introduction
 
 Consider training a GAN to solve some generation task, where a sample can be naturally divided into multiple parts.
@@ -23,9 +25,10 @@ To achieve this, FactorGAN uses four discriminators:
 * a discriminator to judge the generator's shoe quality
 * another to do the same for the edges
 * two "dependency discriminators" to ensure the generator outputs edge maps that fit to their respective shoe images: 
-    * The "real dependency" discriminator tries to distinguish real paired examples from real ones where each shoe was randomly assigned to an edge map (by "shuffling" the real batch), thereby having to learn which edge maps go along which shoes.
-    * The "fake dependency" discriminator does the same for generator samples.
-The real dependency discriminator is the only component that needs paired samples for training, while the other components can make use of the extra available shoes and edge images.
+    * The "real dependency" discriminator distinguishes between real paired examples from their "shuffled" versions, where each shoe was randomly assigned to a different edge map, forcing the discriminator to learn whether a pair of edge map and shoe image belongs together.
+    * The "fake dependency" discriminator does the same, but for generator samples. By comparing its outputs to those from the real dependency discriminator, this allows us to determine which combinations of outputs appear too often or too rarely compared to the real data.
+
+Note that only the real dependency discriminator needs paired samples for training, while the other components can make use of the extra available shoes and edge images, so we can train our GAN with more data.
 
 Training works by alternating between a) updating all discriminators (individually) and b) updating the generator.
 Amazingly, we can update the generator just like in a normal GAN, by simply adding the unnormalised discriminator outputs and using the result for the generator loss.
@@ -40,9 +43,9 @@ Let's take image segmentation as an example:
 
 The generator now acts as a segmentation model, predicting the segmentation from a given city scene.
 In contrast to a normal conditional GAN, whose discriminator requires the scene along with its segmentation as "paired" input, here we use
-* a discriminator acting only on real and fake segmentations, trainable with individual scenes and segmentation maps, ensuring the predicted segmentation is "realistic" on its own, irrespective of the scene it was predicted from
+* a discriminator ensuring segmentation predictions look realistic on their own, by distinguishing isolated, real segmentation maps from fake segmentations produced by passing isolated (unannotated) city scenes through the generator.
 * a fake dependency discriminator that distinguishes (real scene, fake segmentation) pairs from their shuffled variant, to learn how the generator output corresponds to the input
-* a real dependency discriminator that distinguishes (real scene, real segmentation) pairs from their shuffled variants.
+* a real dependency discriminator that distinguishes (real scene, real segmentation) pairs from their shuffled variants to learn how each city scene is related to its segmentation annotation
 
 We perform segmentaiton experiments on the Cityscapes dataset, treating the samples as unpaired (like the CycleGAN).
 But we find that adding as few as 25 paired samples yields substantially higher segmentation accuracy than the CycleGAN - suggesting that the FactorGAN fills a gap between fully unsupervised and fully supervised methods by making efficient use of both paired and unpaired samples.   
