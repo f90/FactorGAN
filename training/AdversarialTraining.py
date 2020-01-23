@@ -1,5 +1,5 @@
 from training.DiscriminatorTraining import *
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 
 def train(cfg, G, G_input, G_opt, D_marginal_setups, D_dep_pairs, device, logdir):
     print("START TRAINING! Writing logs to " + logdir)

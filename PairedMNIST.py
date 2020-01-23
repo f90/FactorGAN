@@ -1,5 +1,5 @@
 import torch
-from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 from torchvision import datasets
 import os
 from torch.utils.data import DataLoader
@@ -17,6 +17,13 @@ from models.discriminators.FCDiscriminator import FCDiscriminator
 from models.generators.FCGenerator import FCGenerator
 from datasets.CropDataset import CropDataset
 import numpy as np
+
+def set_paths(opt):
+    # PATHS
+    opt.out_path = os.path.join(opt.out_path, "PairedMNIST", opt.experiment_name)
+    opt.gen_path = os.path.join(opt.out_path, "gen")
+    opt.log_path = os.path.join(opt.out_path, "logs")
+    Utils.make_dirs([opt.out_path, opt.gen_path, opt.log_path])
 
 def predict_digits_batch(classifier, two_digit_input):
     '''
@@ -68,12 +75,6 @@ def train(opt):
     print("Using " + str(opt.num_joint_samples) + " joint samples!")
     Utils.set_seeds(opt)
     device = Utils.get_device(opt.cuda)
-
-    # PATHS
-    opt.out_path = os.path.join(opt.out_path, "PairedMNIST", opt.experiment_name)
-    opt.gen_path = os.path.join(opt.out_path, "gen")
-    opt.log_path = os.path.join(opt.out_path, "logs")
-    Utils.make_dirs(opt.gen_path)
 
     # DATA
     MNIST_dim = 784
@@ -230,6 +231,8 @@ def get_opt():
 
 if __name__ == "__main__":
     opt = get_opt()
+
+    set_paths(opt)
 
     if not opt.eval:
         train(opt)

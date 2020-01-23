@@ -9,7 +9,6 @@ musdb
 librosa
 numpy
 tensorflow
-tensorboardX
 tensorboard
 torchvision
 torch

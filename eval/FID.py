@@ -163,7 +163,7 @@ def _compute_statistics_of_path(path, model, batch_size, device, crop):
     else:
         files = glob.glob(os.path.join(path, '*.jpg')) +  glob.glob(os.path.join(path, '*.png'))
 
-        imgs = np.array([imread(str(fn),flatten=True).astype(np.float32) / 255.0 for fn in files])
+        imgs = np.array([np.mean(imread(str(fn)).astype(np.float32), axis=2) / 255.0 for fn in files])
         imgs = torch.stack([torch.Tensor(i) for i in imgs])
 
         dataset = TensorDataset(imgs)
