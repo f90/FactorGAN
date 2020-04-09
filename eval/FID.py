@@ -10,8 +10,7 @@ The FID is calculated by assuming that X_1 and X_2 are the activations of
 the pool_3 layer of the inception net for generated samples and real world
 samples respectivly.
 See --help to see further details.
-Code apapted from https://github.com/bioinf-jku/TTUR to use PyTorch instead
-of Tensorflow
+Code apapted from https://github.com/bioinf-jku/TTUR to use PyTorch instead of Tensorflow
 
 Copyright 2018 Institute of Bioinformatics, JKU Linz
 Licensed under the Apache License, Version 2.0 (the "License");

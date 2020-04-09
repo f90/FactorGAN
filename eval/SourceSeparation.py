@@ -64,14 +64,13 @@ def predict(track, model_config, model, model_noise, results_dir=None):
 
 def predict_track(model_config, model, model_noise, mix_audio, mix_sr, sep_input_shape, sep_output_shape):
     '''
-    Outputs source estimates for a given input mixture signal mix_audio [n_frames, n_channels] and a given Tensorflow session and placeholders belonging to the prediction network.
+    Outputs source estimates for a given input mixture signal mix_audio [n_frames, n_channels]
     It iterates through the track, collecting segment-wise predictions to form the output.
     :param model_config: Model configuration dictionary
-    :param sess: Tensorflow session used to run the network inference
     :param mix_audio: [n_frames, n_channels] audio signal (numpy array). Can have higher sampling rate or channels than the model supports, will be downsampled correspondingly.
     :param mix_sr: Sampling rate of mix_audio
-    :param sep_input_shape: Input shape of separator ([batch_size, num_samples, num_channels])
-    :param sep_output_shape: Input shape of separator ([batch_size, num_samples, num_channels])
+    :param sep_input_shape: Input shape of separator
+    :param sep_output_shape: Input shape of separator
     :return:
     '''
     # Load mixture, convert to mono and downsample then

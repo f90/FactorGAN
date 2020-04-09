@@ -3,8 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 import Utils
-from tensorboardX import SummaryWriter
-
 
 class Unet(nn.Module):
     def __init__(self, opt, ngf, nc_in=3, nc_out=3):

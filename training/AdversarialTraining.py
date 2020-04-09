@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 from training.DiscriminatorTraining import *
 from torch.utils.tensorboard import SummaryWriter
 
@@ -17,7 +19,7 @@ def train(cfg, G, G_input, G_opt, D_marginal_setups, D_dep_pairs, device, logdir
 
     # START NORMAL TRAINING
     for epoch in range(cfg.epochs):
-        for i in range(cfg.epoch_iter):
+        for i in tqdm(range(cfg.epoch_iter)):
             total_it = epoch * cfg.epoch_iter + i
             # If dependency GAN active, train marginal discriminators here from both extra data and main data
             for j in range(cfg.disc_iter):  # No. of disc iterations
