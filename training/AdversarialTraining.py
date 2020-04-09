@@ -1,3 +1,5 @@
+import os
+
 from tqdm import tqdm
 
 from training.DiscriminatorTraining import *
@@ -83,6 +85,10 @@ def train(cfg, G, G_input, G_opt, D_marginal_setups, D_dep_pairs, device, logdir
             G_opt.step()
 
         print("EPOCH FINISHED")
+
+        model_output_path = os.path.join(cfg.experiment_path, "G_" + str(epoch))
+        print("Saving generator at " + model_output_path)
+        torch.save(G.state_dict(), model_output_path)
 
     # FINISHED
     print("TRAINING FINISHED")

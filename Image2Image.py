@@ -115,7 +115,7 @@ def eval(opt):
     # GENERATOR
     G = Unet(opt, opt.generator_channels, dataset.A_nc, dataset.B_nc).to(device)
     G_noise = torch.distributions.uniform.Uniform(torch.Tensor([-1] * opt.nz), torch.Tensor([1] * opt.nz))
-    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, "G")))
+    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, opt.eval_model)))
     G.eval()
 
     # EVALUATE: Generate some images using test set and noise as conditional input

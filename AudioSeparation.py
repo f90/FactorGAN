@@ -119,7 +119,7 @@ def eval(opt):
     # SETUP GENERATOR MODEL
     G = Unet(opt, opt.generator_channels, 1, 1).to(device)  # 1 input channel (mixture), 1 output channel (mask)
     G_noise = torch.distributions.uniform.Uniform(torch.Tensor([-1] * opt.nz), torch.Tensor([1] * opt.nz))
-    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, "G")))
+    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, opt.eval_model)))
     G.eval()
 
     #EVALUATE BY PRODUCING SOURCE ESTIMATE AUDIO AND SDR METRICS

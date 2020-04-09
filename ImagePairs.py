@@ -121,7 +121,7 @@ def eval(opt):
                               batch_size=opt.batchSize, shuffle=True)
     G_inputs = InfiniteDataSampler(G_input_data)
     G_outputs = TransformDataSampler(InfiniteDataSampler(G_input_data), G, device)
-    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, "G")))
+    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, opt.eval_model)))
     G.eval()
 
     # EVALUATE

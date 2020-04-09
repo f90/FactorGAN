@@ -7,6 +7,7 @@ def get_parser():
     parser.add_argument('--out_path', type=str, default="out", help="Output path")
 
     parser.add_argument('--eval', action='store_true', help='Perform evaluation instead of training')
+    parser.add_argument('--eval_model', type=str, default='G', help='Name of generator checkpoint file to load for evaluation')
 
     parser.add_argument('--epochs', type=int, default=40, help='number of epochs to train for')
     parser.add_argument('--epoch_iter', type=int, default=5000, help="Number of generator updates per epoch")

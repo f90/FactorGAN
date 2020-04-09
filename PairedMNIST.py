@@ -20,10 +20,10 @@ import numpy as np
 
 def set_paths(opt):
     # PATHS
-    opt.out_path = os.path.join(opt.out_path, "PairedMNIST", opt.experiment_name)
-    opt.gen_path = os.path.join(opt.out_path, "gen")
-    opt.log_path = os.path.join(opt.out_path, "logs")
-    Utils.make_dirs([opt.out_path, opt.gen_path, opt.log_path])
+    opt.experiment_path = os.path.join(opt.out_path, "PairedMNIST", opt.experiment_name)
+    opt.gen_path = os.path.join(opt.experiment_path, "gen")
+    opt.log_path = os.path.join(opt.experiment_path, "logs")
+    Utils.make_dirs([opt.experiment_path, opt.gen_path, opt.log_path])
 
 def predict_digits_batch(classifier, two_digit_input):
     '''
@@ -158,7 +158,7 @@ def eval(opt):
                               batch_size=opt.batchSize, shuffle=True)
     G_inputs = InfiniteDataSampler(G_input_data)
 
-    G.load_state_dict(torch.load(os.path.join(opt.out_path, "G")))
+    G.load_state_dict(torch.load(os.path.join(opt.experiment_path, opt.eval_model)))
     G.eval()
 
     # EVALUATE: Save images to eyeball them + FID for marginals + Class probability correlations

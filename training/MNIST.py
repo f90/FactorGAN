@@ -81,6 +81,7 @@ def main(opt):
 
     # Train model for a certain number of epochs
     NUM_EPOCHS = 4
+    print("TRAINING MNIST CLASSIFIER")
     for epoch in range(NUM_EPOCHS):
         train(model, device, train_loader, optimizer, epoch)
         test(model, device, test_loader)
